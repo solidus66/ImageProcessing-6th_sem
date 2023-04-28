@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Ipbak23
@@ -17,8 +12,8 @@ namespace Ipbak23
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {   
-            Bitmap bmp = new Bitmap(@"C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\images\frog.png");
+        {
+            Bitmap bmp = new Bitmap(@"C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\images\cus.jpg");
             pictureBox1.Image = bmp;
         }
 
@@ -92,7 +87,7 @@ namespace Ipbak23
                 };
             pictureBox2.Image = bmp1;
         }
-
+        // Фильтр низких частот
         private void button4_Click(object sender, EventArgs e)
         {
             Bitmap bmp = (Bitmap)pictureBox1.Image,
@@ -392,12 +387,12 @@ namespace Ipbak23
             Random rnd = new Random();
             Bitmap bmp = (Bitmap)pictureBox1.Image,
                 bmp1 = bmp;
-            for (int i = 0; i < d; ++i) 
+            for (int i = 0; i < d; ++i)
             {
-                int x = Convert.ToInt32(rnd.NextDouble() * (bmp.Width-1));
-                int y = Convert.ToInt32(rnd.NextDouble() * (bmp.Height-1));
-                
-                if(rnd.NextDouble() > 0.5)
+                int x = Convert.ToInt32(rnd.NextDouble() * (bmp.Width - 1));
+                int y = Convert.ToInt32(rnd.NextDouble() * (bmp.Height - 1));
+
+                if (rnd.NextDouble() > 0.5)
                     bmp1.SetPixel(x, y, Color.Black); // перец
                 else
                     bmp1.SetPixel(x, y, Color.White); // соль
@@ -430,7 +425,7 @@ namespace Ipbak23
                 }
                 pictureBox1.Image = (Bitmap)bmp1.Clone();
 
-                // [25] т.к. матрица 5x5
+                // [25] т.к. маска 5x5
                 int[] ra = new int[25];
                 int[] ga = new int[25];
                 int[] ba = new int[25];
@@ -468,6 +463,90 @@ namespace Ipbak23
                     };
                 pictureBox2.Image = bmp1;
             }
+        }
+
+        // Подчёркивание границ (+ шум цветной)
+        private void button11_Click(object sender, EventArgs e)
+        {
+            double d = Double.Parse(textBox1.Text);
+
+            Random rnd = new Random();
+            Bitmap bmp = (Bitmap)pictureBox1.Image,
+            bmp1 = new Bitmap(bmp.Width, bmp.Height);
+
+            // ШУМ
+            for (int y = 0; y < bmp.Height; ++y)
+                for (int x = 0; x < bmp.Width; ++x)
+                {
+                    Color cl = bmp.GetPixel(x, y);
+                    int r, g, b;
+                    r = cl.R; g = cl.G; b = cl.B;
+
+                    double ns = 0;
+                    for (int i = 0; i < 12; ++i)
+                        ns += rnd.NextDouble();
+                    ns -= 6;
+
+                    r += Convert.ToInt32(ns * d);
+                    ns = 0;
+                    for (int i = 0; i < 12; ++i)
+                        ns += rnd.NextDouble();
+                    ns -= 6;
+                    g += Convert.ToInt32(ns * d);
+                    ns = 0;
+                    for (int i = 0; i < 12; ++i)
+                        ns += rnd.NextDouble();
+                    ns -= 6;
+                    b += Convert.ToInt32(ns * d);
+
+                    if (r < 0) r = 0; else if (r > 255) r = 255;
+                    if (g < 0) g = 0; else if (g > 255) g = 255;
+                    if (b < 0) b = 0; else if (b > 255) b = 255;
+
+                    cl = Color.FromArgb(r, g, b);
+                    bmp1.SetPixel(x, y, cl);
+                };
+            pictureBox1.Image = (Bitmap)bmp1.Clone();
+
+            // ФИЛЬТР
+            for (int y = 1; y < bmp.Height - 1; ++y)
+                for (int x = 1; x < bmp.Width - 1; ++x)
+                {
+                    double rs = 0, gs = 0, bs = 0;
+                    int r, g, b; Color cl;
+
+                    double[,] filter = new double[,] { { -1, -1, -1 },
+                                                       { -1,  9, -1 },
+                                                       { -1, -1, -1 }
+                                                     };
+
+                    for (int i = -1; i <= 1; ++i)
+                        for (int j = -1; j <= 1; ++j)
+                        {
+                            cl = bmp.GetPixel(x + i, y + j);
+                            r = cl.R; g = cl.G; b = cl.B;
+                            rs += r * filter[i + 1, j + 1];
+                            gs += g * filter[i + 1, j + 1];
+                            bs += b * filter[i + 1, j + 1];
+                        }
+
+                    r = Convert.ToInt32(rs);
+                    g = Convert.ToInt32(gs);
+                    b = Convert.ToInt32(bs);
+
+                    if (r < 0) r = 0; else if (r > 255) r = 255;
+                    if (g < 0) g = 0; else if (g > 255) g = 255;
+                    if (b < 0) b = 0; else if (b > 255) b = 255;
+
+                    cl = Color.FromArgb(r, g, b);
+                    bmp1.SetPixel(x, y, cl);
+                }
+            pictureBox2.Image = bmp1;
+        }
+
+        private void button11_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
