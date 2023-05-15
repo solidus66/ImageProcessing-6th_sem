@@ -46,6 +46,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.button13 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -58,6 +59,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.button13);
             this.panel1.Controls.Add(this.button11);
             this.panel1.Controls.Add(this.button12);
             this.panel1.Controls.Add(this.button10);
@@ -80,17 +82,17 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(880, 15);
+            this.button11.Location = new System.Drawing.Point(814, 15);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(183, 29);
             this.button11.TabIndex = 13;
             this.button11.Text = "Дифференцирование";
             this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click_1);
+            this.button11.Click += new System.EventHandler(this.button12_Click);
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(825, 15);
+            this.button12.Location = new System.Drawing.Point(759, 15);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(49, 29);
             this.button12.TabIndex = 12;
@@ -100,7 +102,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(772, 15);
+            this.button10.Location = new System.Drawing.Point(706, 15);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(47, 29);
             this.button10.TabIndex = 10;
@@ -130,7 +132,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(701, 15);
+            this.button7.Location = new System.Drawing.Point(643, 15);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(57, 29);
             this.button7.TabIndex = 7;
@@ -140,7 +142,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(638, 15);
+            this.button6.Location = new System.Drawing.Point(580, 15);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(57, 29);
             this.button6.TabIndex = 6;
@@ -150,7 +152,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(461, 15);
+            this.textBox1.Location = new System.Drawing.Point(403, 15);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(103, 29);
@@ -159,7 +161,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(574, 15);
+            this.button5.Location = new System.Drawing.Point(516, 15);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(57, 29);
             this.button5.TabIndex = 4;
@@ -253,6 +255,16 @@
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(1004, 15);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(59, 29);
+            this.button13.TabIndex = 14;
+            this.button13.Text = "Хоуг";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -296,6 +308,7 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button13;
     }
 }
 

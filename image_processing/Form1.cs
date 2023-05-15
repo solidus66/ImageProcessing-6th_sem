@@ -515,10 +515,11 @@ namespace Ipbak23
                     double rs = 0, gs = 0, bs = 0;
                     int r, g, b; Color cl;
 
-                    double[,] filter = new double[,] { { -1, -1, -1 },
-                                                       { -1,  9, -1 },
-                                                       { -1, -1, -1 }
-                                                     };
+                    double[,] filter = new double[,] 
+                    { { -1, -1, -1 },
+                      { -1,  9, -1 },
+                      { -1, -1, -1 }
+                    };
 
                     for (int i = -1; i <= 1; ++i)
                         for (int j = -1; j <= 1; ++j)
@@ -544,7 +545,100 @@ namespace Ipbak23
             pictureBox2.Image = bmp1;
         }
 
-        private void button11_Click_1(object sender, EventArgs e)
+        // Дифференцирование (модуль градиента (оператор Собеля) + Лаплассиан))
+        private void button12_Click(object sender, EventArgs e)
+        {
+            double d = Double.Parse(textBox1.Text);
+
+            Bitmap bmp = (Bitmap)pictureBox1.Image;
+            Bitmap bmp1 = new Bitmap(bmp.Width, bmp.Height);
+
+            // Матрицы операторов Собеля для вычисления градиента
+            double[,] sobelXMatrix = new double[,]
+            {
+                { -1, 0, 1 },
+                { -2, 0, 2 },
+                { -1, 0, 1 }
+            };
+
+            double[,] sobelYMatrix = new double[,]
+            {
+                { -1, -2, -1 },
+                {  0,  0,  0 },
+                {  1,  2,  1 }
+            };
+
+            // Матрица оператора Лапласа
+            double[,] laplacianMatrix = new double[,]
+            {
+                { 0,  1, 0 },
+                { 1, -4, 1 },
+                { 0,  1, 0 }
+            };
+
+            // Фильтрация и вычисление модуля градиента с применением оператора Лапласа
+            for (int y = 1; y < bmp.Height - 1; ++y)
+            {
+                for (int x = 1; x < bmp.Width - 1; ++x)
+                {
+                    int r, g, b;
+                    Color cl;
+
+                    double gxR = 0, gxG = 0, gxB = 0;
+                    double gyR = 0, gyG = 0, gyB = 0;
+                    double laplacianR = 0, laplacianG = 0, laplacianB = 0;
+
+                    for (int i = -1; i <= 1; ++i)
+                    {
+                        for (int j = -1; j <= 1; ++j)
+                        {
+                            cl = bmp.GetPixel(x + i, y + j);
+                            r = cl.R; g = cl.G; b = cl.B;
+
+                            double sobelXValue = sobelXMatrix[i + 1, j + 1];
+                            double sobelYValue = sobelYMatrix[i + 1, j + 1];
+                            double laplacianValue = laplacianMatrix[i + 1, j + 1];
+
+                            gxR += r * sobelXValue;
+                            gxG += g * sobelXValue;
+                            gxB += b * sobelXValue;
+
+                            gyR += r * sobelYValue;
+                            gyG += g * sobelYValue;
+                            gyB += b * sobelYValue;
+
+                            laplacianR += r * laplacianValue;
+                            laplacianG += g * laplacianValue;
+                            laplacianB += b * laplacianValue;
+                        }
+                    }
+                    r = Convert.ToInt32(Math.Sqrt(gxR * gxR + gyR * gyR));
+                    g = Convert.ToInt32(Math.Sqrt(gxG * gxG + gyG * gyG));
+                    b = Convert.ToInt32(Math.Sqrt(gxB * gxB + gyB * gyB));
+
+                    if (r < 0) r = 0; else if (r > 255) r = 255;
+                    if (g < 0) g = 0; else if (g > 255) g = 255;
+                    if (b < 0) b = 0; else if (b > 255) b = 255;
+
+                    cl = Color.FromArgb(r, g, b);
+
+                    // Добавляем эффект оператора Лапласа к модулю градиента
+                    r += Convert.ToInt32(laplacianR * d);
+                    g += Convert.ToInt32(laplacianG * d);
+                    b += Convert.ToInt32(laplacianB * d);
+
+                    if (r < 0) r = 0; else if (r > 255) r = 255;
+                    if (g < 0) g = 0; else if (g > 255) g = 255;
+                    if (b < 0) b = 0; else if (b > 255) b = 255;
+
+                    cl = Color.FromArgb(r, g, b);
+                    bmp1.SetPixel(x, y, cl);
+                }
+            }
+            pictureBox2.Image = bmp1;
+        }
+
+        private void button13_Click(object sender, EventArgs e)
         {
 
         }
