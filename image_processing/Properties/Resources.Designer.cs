@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ipbak23.Properties {
+namespace image_processing.Properties {
     using System;
     
     

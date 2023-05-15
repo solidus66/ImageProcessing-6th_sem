@@ -13,7 +13,8 @@ namespace Ipbak23
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Bitmap bmp = new Bitmap(@"C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\images\cus.jpg");
+            //Bitmap bmp = new Bitmap(@"C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\images\cus.jpg");
+            Bitmap bmp = new Bitmap(@"C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\images\for hough.jpg");
             pictureBox1.Image = bmp;
         }
 
@@ -515,7 +516,7 @@ namespace Ipbak23
                     double rs = 0, gs = 0, bs = 0;
                     int r, g, b; Color cl;
 
-                    double[,] filter = new double[,] 
+                    double[,] filter = new double[,]
                     { { -1, -1, -1 },
                       { -1,  9, -1 },
                       { -1, -1, -1 }
@@ -638,9 +639,77 @@ namespace Ipbak23
             pictureBox2.Image = bmp1;
         }
 
+        // Преобразование Хоуга
         private void button13_Click(object sender, EventArgs e)
         {
+            Bitmap bmp = (Bitmap)pictureBox1.Image;
+            Bitmap bmp1 = new Bitmap(bmp.Width, bmp.Height);
 
-        }
+            // применяем преобразование Хоуга для обнаружения прямых
+            int maxW = 180; // максимальный угол (0-180)
+            int maxR = (int)Math.Sqrt(bmp.Width * bmp.Width + bmp.Height * bmp.Height); // максимальное значение расстояния от начала координат до прямой
+
+            // массив для хранения прямых
+            int[,] houghArray = new int[maxW, maxR];
+
+            // проходимся по всем пикселям и строим пространство Хоуга
+            for (int y = 0; y < bmp.Height; y++)
+            {
+                for (int x = 0; x < bmp.Width; x++)
+                {
+                    Color pixelColor = bmp.GetPixel(x, y);
+                    if (pixelColor.R == 0) // если пиксель является контуром (проверка по одному цветовому каналу)
+                    {
+                        for (int W = 0; W < maxW; W++)
+                        {
+                            double thetaRadians = W * Math.PI / maxW;
+                            int R = (int)(x * Math.Cos(thetaRadians) + y * Math.Sin(thetaRadians));
+                            if (R >= 0 && R < maxR)
+                            {
+                                houghArray[W, R]++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // находим максимальное значение в массиве прямых
+            int maxVote = 0;
+            for (int W = 0; W < maxW; W++)
+            {
+                for (int R = 0; R < maxR; R++)
+                {
+                    if (houghArray[W, R] > maxVote)
+                    {
+                        maxVote = houghArray[W, R];
+                    }
+                }
+            }
+
+            // задаем порог для определения прямых
+            int threshold = maxVote / 2;
+
+            // находим точки контура, лежащие на прямых и рисуем их на новом изображении
+            for (int W = 0; W < maxW; W++)
+            {
+                for (int R = 0; R < maxR; R++)
+                {
+                    if (houghArray[W, R] > threshold)
+                    {
+                        double WRadians = W * Math.PI / maxW;
+                        for (int x = 0; x < bmp.Width; x++)
+                        {
+                            int y = (int)((R - x * Math.Cos(WRadians)) / Math.Sin(WRadians));
+                            if (y >= 0 && y < bmp.Height)
+                            {
+                                bmp1.SetPixel(x, y, Color.Red);
+                            }
+                        }
+                    }
+                }
+            }
+
+        pictureBox2.Image = bmp1;
+        } 
     }
 }

@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button13 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
@@ -46,7 +47,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.button13 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -77,12 +77,22 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1077, 70);
+            this.panel1.Size = new System.Drawing.Size(1490, 70);
             this.panel1.TabIndex = 0;
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(383, 15);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(59, 29);
+            this.button13.TabIndex = 14;
+            this.button13.Text = "Хоуг";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(814, 15);
+            this.button11.Location = new System.Drawing.Point(1128, 15);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(183, 29);
             this.button11.TabIndex = 13;
@@ -92,7 +102,7 @@
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(759, 15);
+            this.button12.Location = new System.Drawing.Point(1073, 15);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(49, 29);
             this.button12.TabIndex = 12;
@@ -102,7 +112,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(706, 15);
+            this.button10.Location = new System.Drawing.Point(1020, 15);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(47, 29);
             this.button10.TabIndex = 10;
@@ -132,7 +142,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(643, 15);
+            this.button7.Location = new System.Drawing.Point(957, 15);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(57, 29);
             this.button7.TabIndex = 7;
@@ -142,7 +152,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(580, 15);
+            this.button6.Location = new System.Drawing.Point(894, 15);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(57, 29);
             this.button6.TabIndex = 6;
@@ -152,7 +162,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(403, 15);
+            this.textBox1.Location = new System.Drawing.Point(717, 15);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(103, 29);
@@ -161,7 +171,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(516, 15);
+            this.button5.Location = new System.Drawing.Point(830, 15);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(57, 29);
             this.button5.TabIndex = 4;
@@ -229,8 +239,8 @@
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(1077, 432);
-            this.splitContainer1.SplitterDistance = 515;
+            this.splitContainer1.Size = new System.Drawing.Size(1490, 649);
+            this.splitContainer1.SplitterDistance = 712;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -255,21 +265,11 @@
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
-            // button13
-            // 
-            this.button13.Location = new System.Drawing.Point(1004, 15);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(59, 29);
-            this.button13.TabIndex = 14;
-            this.button13.Text = "Хоуг";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1077, 502);
+            this.ClientSize = new System.Drawing.Size(1490, 719);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(4);

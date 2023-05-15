@@ -32,9 +32,9 @@ C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изо
 C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\image_processing\bin\Debug\Ipbak23.pdb
 C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\image_processing\obj\x86\Debug\Ipbak23.csproj.AssemblyReference.cache
 C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\image_processing\obj\x86\Debug\Ipbak23.csproj.SuggestedBindingRedirects.cache
-C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\image_processing\obj\x86\Debug\Ipbak23.Form1.resources
 C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\image_processing\obj\x86\Debug\Ipbak23.Properties.Resources.resources
 C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\image_processing\obj\x86\Debug\Ipbak23.csproj.GenerateResource.cache
 C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\image_processing\obj\x86\Debug\Ipbak23.csproj.CoreCompileInputs.cache
 C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\image_processing\obj\x86\Debug\Ipbak23.exe
 C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\image_processing\obj\x86\Debug\Ipbak23.pdb
+C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\image_processing\obj\x86\Debug\Ipbak23.Form1.resources

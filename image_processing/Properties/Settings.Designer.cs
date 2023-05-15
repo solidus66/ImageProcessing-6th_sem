@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ipbak23.Properties {
+namespace image_processing.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
