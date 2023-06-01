@@ -15,6 +15,7 @@ namespace Ipbak23
         {
             //Bitmap bmp = new Bitmap(@"C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\images\cus.jpg");
             Bitmap bmp = new Bitmap(@"C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\images\for hough.jpg");
+            //Bitmap bmp = new Bitmap(@"C:\Users\solidus66\OneDrive\ВГУ\3 курс 2 сем\Обработка изображений\tasks\project\images\penta.jpg");
             pictureBox1.Image = bmp;
         }
 
@@ -554,7 +555,7 @@ namespace Ipbak23
             Bitmap bmp = (Bitmap)pictureBox1.Image;
             Bitmap bmp1 = new Bitmap(bmp.Width, bmp.Height);
 
-            // Матрицы операторов Собеля для вычисления градиента
+            // матрицы операторов Собеля для вычисления градиента
             double[,] sobelXMatrix = new double[,]
             {
                 { -1, 0, 1 },
@@ -569,7 +570,7 @@ namespace Ipbak23
                 {  1,  2,  1 }
             };
 
-            // Матрица оператора Лапласа
+            // матрица оператора Лапласа
             double[,] laplacianMatrix = new double[,]
             {
                 { 0,  1, 0 },
@@ -577,7 +578,7 @@ namespace Ipbak23
                 { 0,  1, 0 }
             };
 
-            // Фильтрация и вычисление модуля градиента с применением оператора Лапласа
+            // фильтрация и вычисление модуля градиента с применением оператора Лапласа
             for (int y = 1; y < bmp.Height - 1; ++y)
             {
                 for (int x = 1; x < bmp.Width - 1; ++x)
@@ -623,7 +624,7 @@ namespace Ipbak23
 
                     cl = Color.FromArgb(r, g, b);
 
-                    // Добавляем эффект оператора Лапласа к модулю градиента
+                    // добавляем эффект оператора Лапласа к модулю градиента
                     r += Convert.ToInt32(laplacianR * d);
                     g += Convert.ToInt32(laplacianG * d);
                     b += Convert.ToInt32(laplacianB * d);
@@ -645,24 +646,23 @@ namespace Ipbak23
             Bitmap bmp = (Bitmap)pictureBox1.Image;
             Bitmap bmp1 = new Bitmap(bmp.Width, bmp.Height);
 
-            // применяем преобразование Хоуга для обнаружения прямых
-            int maxW = 180; // максимальный угол (0-180)
-            int maxR = (int)Math.Sqrt(bmp.Width * bmp.Width + bmp.Height * bmp.Height); // максимальное значение расстояния от начала координат до прямой
+            // Хоуг
+            int maxW = 180;
+            int maxR = (int)Math.Sqrt(bmp.Width * bmp.Width + bmp.Height * bmp.Height);
 
-            // массив для хранения прямых
-            int[,] houghArray = new int[maxW, maxR];
 
-            // проходимся по всем пикселям и строим пространство Хоуга
+            int[,] houghArray = new int[maxW * 2, maxR];
+
             for (int y = 0; y < bmp.Height; y++)
             {
                 for (int x = 0; x < bmp.Width; x++)
                 {
                     Color pixelColor = bmp.GetPixel(x, y);
-                    if (pixelColor.R == 0) // если пиксель является контуром (проверка по одному цветовому каналу)
+                    if (pixelColor.R == 0)
                     {
-                        for (int W = 0; W < maxW; W++)
+                        for (int W = 0; W < maxW * 2; W++)
                         {
-                            double thetaRadians = W * Math.PI / maxW;
+                            double thetaRadians = (W - maxW) * Math.PI / maxW;
                             int R = (int)(x * Math.Cos(thetaRadians) + y * Math.Sin(thetaRadians));
                             if (R >= 0 && R < maxR)
                             {
@@ -673,9 +673,9 @@ namespace Ipbak23
                 }
             }
 
-            // находим максимальное значение в массиве прямых
+            Bitmap bmp2 = new Bitmap(maxW * 2, maxR);
             int maxVote = 0;
-            for (int W = 0; W < maxW; W++)
+            for (int W = 0; W < maxW * 2; W++)
             {
                 for (int R = 0; R < maxR; R++)
                 {
@@ -685,18 +685,25 @@ namespace Ipbak23
                     }
                 }
             }
+            for (int W = 0; W < maxW * 2; W++)
+            {
+                for (int R = 0; R < maxR; R++)
+                {
+                    int br = houghArray[W, R] * 255 / (maxW * 2);
+                    Color cl = Color.FromArgb(br, br, br);
+                    bmp2.SetPixel(W, R, cl);
+                }
+            }
 
-            // задаем порог для определения прямых
             int threshold = maxVote / 2;
 
-            // находим точки контура, лежащие на прямых и рисуем их на новом изображении
-            for (int W = 0; W < maxW; W++)
+            for (int W = 0; W < maxW * 2; W++)
             {
                 for (int R = 0; R < maxR; R++)
                 {
                     if (houghArray[W, R] > threshold)
                     {
-                        double WRadians = W * Math.PI / maxW;
+                        double WRadians = (W - maxW) * Math.PI / maxW;
                         for (int x = 0; x < bmp.Width; x++)
                         {
                             int y = (int)((R - x * Math.Cos(WRadians)) / Math.Sin(WRadians));
@@ -705,11 +712,13 @@ namespace Ipbak23
                                 bmp1.SetPixel(x, y, Color.Red);
                             }
                         }
+                        //bmp1.SetPixel(W, R, Color.Red);
                     }
                 }
             }
 
-        pictureBox2.Image = bmp1;
-        } 
+            //pictureBox2.Image = bmp1;
+            pictureBox2.Image = bmp2;
+        }
     }
 }
